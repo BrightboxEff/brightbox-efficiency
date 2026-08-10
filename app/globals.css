@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: #f5f1e8;
+  color: #2b2b25;
+}
+
+input[type="color"] {
+  padding: 0;
+  border: none;
+  background: none;
+}
