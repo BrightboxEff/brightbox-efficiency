@@ -19,7 +19,7 @@ async function sendEmail(input: { to: string; replyTo?: string; subject: string;
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Brightbox Solar Calculator <onboarding@resend.dev>",
+      from: "Brightbox Solar Calculator <notifications@admin.brightboxefficiency.com>",
       to: [input.to],
       reply_to: input.replyTo,
       subject: input.subject,
