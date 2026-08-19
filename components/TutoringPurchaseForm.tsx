@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const HOURLY_RATE_GBP = 60;
+import { CONSULTATION_HOURLY_RATE_GBP as HOURLY_RATE_GBP } from "@/lib/pricing";
 
 export default function TutoringPurchaseForm() {
   const [email, setEmail] = useState("");

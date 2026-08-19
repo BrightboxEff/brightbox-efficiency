@@ -11,7 +11,12 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/server";
-import { sendConsultationRequestEmail, sendTutoringPurchaseEmail } from "@/lib/email";
+import {
+  sendConsultationRequestEmail,
+  sendTutoringPurchaseEmail,
+  sendSurveyBillRequestEmail,
+  sendSurveyPaidNotificationEmail,
+} from "@/lib/email";
 import { BRAND } from "@/lib/brand";
 
 export async function POST(req: NextRequest) {
@@ -79,6 +84,35 @@ export async function POST(req: NextRequest) {
           hours,
           totalGbp: (session.amount_total ?? 0) / 100,
         });
+        break;
+      }
+
+      if (session.mode === "payment" && session.metadata?.energy_survey_submission_id) {
+        const submissionId = session.metadata.energy_survey_submission_id;
+
+        const { data: submission } = await supabase
+          .from("energy_survey_submissions")
+          .update({ status: "paid", paid_at: new Date().toISOString() })
+          .eq("id", submissionId)
+          .select("first_name, email, business_name, consultation_hours, upload_token")
+          .single();
+
+        if (submission) {
+          const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+          await sendSurveyBillRequestEmail({
+            to: submission.email,
+            firstName: submission.first_name,
+            uploadUrl: `${siteUrl}/survey/upload/${submission.upload_token}`,
+          });
+
+          await sendSurveyPaidNotificationEmail({
+            to: BRAND.contactEmail,
+            submitterEmail: submission.email,
+            businessName: submission.business_name,
+            consultationHours: submission.consultation_hours,
+          });
+        }
         break;
       }
 

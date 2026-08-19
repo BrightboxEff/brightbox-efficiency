@@ -28,6 +28,9 @@ export default async function Header() {
           <Link href="/tutoring" className={navLinkClasses}>
             Interview Tutoring
           </Link>
+          <Link href="/survey" className={navLinkClasses}>
+            Energy Survey
+          </Link>
 
           {user ? (
             <>

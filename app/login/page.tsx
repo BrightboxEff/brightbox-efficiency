@@ -27,7 +27,8 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/calculator";
+    const next = new URLSearchParams(window.location.search).get("next");
+    window.location.href = next && next.startsWith("/") ? next : "/calculator";
   }
 
   return (

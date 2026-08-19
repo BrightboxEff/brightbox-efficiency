@@ -22,6 +22,12 @@ const links = [
     description: "Book hours of one-to-one coaching for technical and engineering interviews.",
     cta: "View tutoring",
   },
+  {
+    href: "/survey",
+    title: "Energy Efficiency Survey",
+    description: "A remote, bills-based energy efficiency assessment with practical savings tips.",
+    cta: "Start the survey",
+  },
 ];
 
 export default function LandingPage() {
@@ -71,7 +77,7 @@ export default function LandingPage() {
       </section>
 
       <section className="mt-12">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((item) => (
             <Link
               key={item.href}

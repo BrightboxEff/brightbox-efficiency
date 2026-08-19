@@ -8,8 +8,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
+import { CONSULTATION_HOURLY_RATE_GBP } from "@/lib/pricing";
 
-const HOURLY_RATE_GBP = 60;
 const MIN_HOURS = 1;
 const MAX_HOURS = 20;
 
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       {
         price_data: {
           currency: "gbp",
-          unit_amount: HOURLY_RATE_GBP * 100,
+          unit_amount: CONSULTATION_HOURLY_RATE_GBP * 100,
           product_data: {
             name: "1:1 Engineering Interview Tutoring (per hour)",
           },
