@@ -48,7 +48,7 @@ export default function LandingPage() {
               className="h-16 w-auto sm:h-20"
             />
             <h1 className="mt-4 text-3xl font-semibold text-cream sm:text-4xl">
-              {BRAND.name}
+              Brightbox Efficiency
             </h1>
             <p className="mt-3 max-w-xl text-cream/90">{BRAND.tagline}</p>
 
