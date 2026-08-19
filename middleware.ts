@@ -1,20 +1,32 @@
 /**
  * middleware.ts
- * Gates the whole app behind Supabase auth + a 14-day trial / active Stripe
- * subscription. Route classes:
- *  - public: no auth required (login, signup, auth callback, stripe webhook)
- *  - authOnly: must be logged in, but trial/subscription state doesn't matter
- *    (billing page + the Stripe routes that get you out of "expired" state)
- *  - everything else: must be logged in AND have an active subscription or
- *    be within their 14-day trial
+ * Gates the calculator app behind Supabase auth + a 7-day trial / active
+ * Stripe subscription. The landing page and other product pages
+ * (maintenance, tutoring) are public marketing/purchase pages. Route
+ * classes:
+ *  - public: no auth required (landing page, login, signup, auth callback,
+ *    maintenance, tutoring, stripe webhook, tutoring checkout)
+ *  - authOnly: must be logged in, but trial/subscription state doesn't
+ *    matter (billing page + the Stripe routes that get you out of
+ *    "expired" state)
+ *  - everything else (/calculator, /settings): must be logged in AND have
+ *    an active subscription or be within their 7-day trial
  */
 
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
+import { TRIAL_LENGTH_DAYS } from "@/lib/trial";
 
-const TRIAL_LENGTH_DAYS = 14;
-
-const PUBLIC_PATHS = ["/login", "/signup", "/auth/callback", "/api/stripe/webhook"];
+const PUBLIC_PATHS = [
+  "/",
+  "/login",
+  "/signup",
+  "/auth/callback",
+  "/maintenance",
+  "/tutoring",
+  "/api/stripe/webhook",
+  "/api/tutoring-checkout",
+];
 const AUTH_ONLY_PATHS = ["/billing", "/api/stripe/checkout", "/api/stripe/portal"];
 
 function matchesPath(pathname: string, paths: string[]) {

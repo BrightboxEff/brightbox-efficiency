@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { TRIAL_LENGTH_DAYS } from "@/lib/trial";
 
 export default function SignupPage() {
   const [companyName, setCompanyName] = useState("");
@@ -42,7 +43,7 @@ export default function SignupPage() {
         },
         { onConflict: "user_id", ignoreDuplicates: true }
       );
-      window.location.href = "/";
+      window.location.href = "/calculator";
       return;
     }
 
@@ -58,7 +59,7 @@ export default function SignupPage() {
         <h1 className="text-2xl font-semibold text-charcoal">Check your email</h1>
         <p className="mt-3 text-charcoal/80">
           We&apos;ve sent a confirmation link to <strong>{email}</strong>. Click it
-          to activate your account and start your 14-day free trial.
+          to activate your account and start your {TRIAL_LENGTH_DAYS}-day free trial.
         </p>
       </div>
     );
@@ -67,7 +68,7 @@ export default function SignupPage() {
   return (
     <div className="mx-auto max-w-md py-16">
       <h1 className="text-2xl font-semibold text-charcoal">
-        Start your 14-day free trial
+        Start your {TRIAL_LENGTH_DAYS}-day free trial
       </h1>
       <p className="mt-2 text-sm text-charcoal/70">
         No card required. Cancel anytime during your trial.

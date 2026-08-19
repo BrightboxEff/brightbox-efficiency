@@ -1,49 +1,90 @@
-import { createClient } from "@/lib/supabase/server";
+import Image from "next/image";
+import Link from "next/link";
 import { BRAND } from "@/lib/brand";
-import CalculatorClient from "@/components/CalculatorClient";
-import type { InstallerSettings } from "@/types";
 
-export default async function HomePage() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+const links = [
+  {
+    href: "/calculator",
+    title: "Solar Payback Calculator",
+    description:
+      "Postcode-based solar generation, savings, and payback modelling for installers and homeowners.",
+    cta: "Try the calculator",
+  },
+  {
+    href: "/maintenance",
+    title: "Maintenance Consultation",
+    description: "Ongoing system health checks and maintenance planning for existing installations.",
+    cta: "Learn more",
+  },
+  {
+    href: "/tutoring",
+    title: "1:1 Engineering Interview Tutoring",
+    description: "Book hours of one-to-one coaching for technical and engineering interviews.",
+    cta: "View tutoring",
+  },
+];
 
-  let installer: InstallerSettings = {
-    companyName: BRAND.name,
-    logoUrl: null,
-    primaryColor: BRAND.colors.mossGreen,
-    accentColor: BRAND.colors.warmGold,
-  };
-
-  if (user) {
-    const { data } = await supabase
-      .from("installers")
-      .select("company_name, logo_url, primary_color, accent_color")
-      .eq("user_id", user.id)
-      .single();
-
-    if (data) {
-      installer = {
-        companyName: data.company_name || BRAND.name,
-        logoUrl: data.logo_url,
-        primaryColor: data.primary_color,
-        accentColor: data.accent_color,
-      };
-    }
-  }
-
+export default function LandingPage() {
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-charcoal">Solar Payback Calculator</h1>
-      <p className="mt-2 text-charcoal/70">
-        Enter your customer&apos;s details to estimate solar generation, savings, and payback
-        period.
-      </p>
+      <section className="relative overflow-hidden rounded-2xl">
+        <div className="relative h-80 w-full sm:h-96">
+          <Image
+            src="/hero-rooftop.jpg"
+            alt="Commercial rooftop solar installation"
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-charcoal/55" />
+          <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
+            <Image
+              src="/brightbox-icon.png"
+              alt=""
+              width={237}
+              height={219}
+              priority
+              className="h-16 w-auto sm:h-20"
+            />
+            <h1 className="mt-4 text-3xl font-semibold text-cream sm:text-4xl">
+              {BRAND.name}
+            </h1>
+            <p className="mt-3 max-w-xl text-cream/90">{BRAND.tagline}</p>
 
-      <div className="mt-8">
-        <CalculatorClient installer={installer} />
-      </div>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/signup"
+                className="rounded-md bg-gold px-5 py-2.5 font-medium text-charcoal transition hover:bg-gold/90"
+              >
+                Start free trial
+              </Link>
+              <Link
+                href="/calculator"
+                className="rounded-md border border-cream/70 px-5 py-2.5 font-medium text-cream transition hover:bg-cream/10"
+              >
+                Try the calculator
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {links.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex flex-col rounded-lg border border-border-muted bg-white p-6 shadow-sm transition hover:border-moss"
+            >
+              <h2 className="text-lg font-semibold text-charcoal">{item.title}</h2>
+              <p className="mt-2 flex-1 text-sm text-charcoal/70">{item.description}</p>
+              <span className="mt-4 text-sm font-medium text-moss">{item.cta} →</span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

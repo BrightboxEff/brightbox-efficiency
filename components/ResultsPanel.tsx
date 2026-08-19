@@ -2,6 +2,8 @@ import type { CalculateResponse } from "@/types";
 
 interface ResultsPanelProps {
   result: CalculateResponse;
+  projectName?: string;
+  addressLine?: string;
 }
 
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
@@ -18,13 +20,14 @@ function Stat({ label, value, highlight }: { label: string; value: string; highl
 const gbp = (n: number) =>
   n.toLocaleString("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 
-export default function ResultsPanel({ result }: ResultsPanelProps) {
+export default function ResultsPanel({ result, projectName, addressLine }: ResultsPanelProps) {
   const { payback, solar, location } = result;
 
   return (
     <div className="mt-8">
       <h2 className="text-lg font-semibold text-charcoal">
-        Results for {location.postcode} ({location.region})
+        {projectName ? `${projectName} — ` : ""}
+        Results for {addressLine || location.postcode} ({location.region})
       </h2>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

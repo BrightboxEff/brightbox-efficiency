@@ -5,8 +5,10 @@
  * middleware.ts can decide whether to gate the request.
  */
 
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+
+type CookieToSet = { name: string; value: string; options: CookieOptions };
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -21,7 +23,7 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: CookieToSet[]) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           response = NextResponse.next({ request: { headers: request.headers } });
           cookiesToSet.forEach(({ name, value, options }) =>
@@ -47,7 +49,22 @@ export async function updateSession(request: NextRequest) {
       .select("subscription_status, trial_start")
       .eq("user_id", user.id)
       .single();
-    installer = data;
+
+    if (data) {
+      installer = data;
+    } else {
+      // No row yet — happens whenever a user ends up authenticated without
+      // /auth/callback's upsert having run (e.g. Supabase delivered the
+      // confirmation session via a URL fragment instead of ?code=, which
+      // never reaches the server). Create the trial row here instead of
+      // treating "no row" as "no access".
+      const { data: created } = await supabase
+        .from("installers")
+        .insert({ user_id: user.id, trial_start: new Date().toISOString() })
+        .select("subscription_status, trial_start")
+        .single();
+      installer = created;
+    }
   }
 
   return { response, user, installer };

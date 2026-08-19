@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import type { CalculateRequest } from "@/types";
+import type { CalculatorFormValues } from "@/types";
+import { DEFAULT_ROOF_TYPE_ID } from "@/lib/roofPresets";
+import SliderField from "@/components/SliderField";
+import RoofSizeHelper from "@/components/RoofSizeHelper";
+import AddressLookup from "@/components/AddressLookup";
 
 interface CalculatorFormProps {
-  onSubmit: (input: CalculateRequest) => void;
+  onSubmit: (input: CalculatorFormValues) => void;
   loading: boolean;
 }
 
@@ -13,20 +17,28 @@ const inputClasses =
 const labelClasses = "block text-sm font-medium text-charcoal";
 
 export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProps) {
+  const [projectName, setProjectName] = useState("");
   const [postcode, setPostcode] = useState("");
+  const [addressLine, setAddressLine] = useState("");
   const [roofSizeM2, setRoofSizeM2] = useState("");
+  const [roofType, setRoofType] = useState(DEFAULT_ROOF_TYPE_ID);
   const [systemSizeKwp, setSystemSizeKwp] = useState("");
   const [systemCostGbp, setSystemCostGbp] = useState("");
   const [batteryCapacityKwh, setBatteryCapacityKwh] = useState("");
+  const [batteryCostGbp, setBatteryCostGbp] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     onSubmit({
+      projectName: projectName || undefined,
       postcode,
+      addressLine: addressLine || undefined,
       roofSizeM2: roofSizeM2 ? Number(roofSizeM2) : undefined,
+      roofType,
       systemSizeKwp: Number(systemSizeKwp),
       systemCostGbp: Number(systemCostGbp),
       batteryCapacityKwh: batteryCapacityKwh ? Number(batteryCapacityKwh) : undefined,
+      batteryCostGbp: batteryCostGbp ? Number(batteryCostGbp) : undefined,
     });
   }
 
@@ -37,87 +49,97 @@ export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProp
     >
       <h2 className="text-lg font-semibold text-charcoal">Customer &amp; system details</h2>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="postcode" className={labelClasses}>
-            Postcode
-          </label>
-          <input
-            id="postcode"
-            type="text"
-            required
-            placeholder="SW1A 1AA"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
-            className={inputClasses}
-          />
-        </div>
+      <div className="mt-4">
+        <label htmlFor="projectName" className={labelClasses}>
+          Project / business name <span className="font-normal text-charcoal/50">— optional</span>
+        </label>
+        <input
+          id="projectName"
+          type="text"
+          placeholder="e.g. Smith Residence or Acme Ltd"
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
+          className={`${inputClasses} sm:w-96`}
+        />
+      </div>
 
+      <div className="mt-4">
+        <AddressLookup
+          postcode={postcode}
+          onPostcodeChange={setPostcode}
+          addressLine={addressLine}
+          onAddressLineChange={setAddressLine}
+        />
+      </div>
+
+      <div className="mt-6 space-y-6">
         <div>
-          <label htmlFor="roofSizeM2" className={labelClasses}>
-            Roof size (m²)
-          </label>
-          <input
+          <SliderField
             id="roofSizeM2"
-            type="number"
+            label="Roof size"
+            unit="m²"
             min={0}
-            step="0.1"
-            placeholder="25"
+            max={150}
+            step={1}
             value={roofSizeM2}
-            onChange={(e) => setRoofSizeM2(e.target.value)}
-            className={inputClasses}
+            onChange={setRoofSizeM2}
           />
+          <div className="mt-3">
+            <RoofSizeHelper
+              roofTypeId={roofType}
+              onRoofTypeChange={setRoofType}
+              onApplyRoofSize={(size) => setRoofSizeM2(String(size))}
+            />
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="systemSizeKwp" className={labelClasses}>
-            System size (kWp)
-          </label>
-          <input
-            id="systemSizeKwp"
-            type="number"
-            required
-            min={0}
-            step="0.1"
-            placeholder="4.2"
-            value={systemSizeKwp}
-            onChange={(e) => setSystemSizeKwp(e.target.value)}
-            className={inputClasses}
-          />
-        </div>
+        <SliderField
+          id="systemSizeKwp"
+          label="System size"
+          unit="kWp"
+          required
+          min={0}
+          max={20}
+          step={0.1}
+          value={systemSizeKwp}
+          onChange={setSystemSizeKwp}
+        />
 
-        <div>
-          <label htmlFor="systemCostGbp" className={labelClasses}>
-            System cost (£)
-          </label>
-          <input
-            id="systemCostGbp"
-            type="number"
-            required
-            min={0}
-            step="1"
-            placeholder="6500"
-            value={systemCostGbp}
-            onChange={(e) => setSystemCostGbp(e.target.value)}
-            className={inputClasses}
-          />
-        </div>
+        <SliderField
+          id="systemCostGbp"
+          label="System cost"
+          unit="£"
+          required
+          min={0}
+          max={30000}
+          step={50}
+          value={systemCostGbp}
+          onChange={setSystemCostGbp}
+        />
 
-        <div>
-          <label htmlFor="batteryCapacityKwh" className={labelClasses}>
-            Battery size (kWh)
-          </label>
-          <input
-            id="batteryCapacityKwh"
-            type="number"
-            min={0}
-            step="0.1"
-            placeholder="5 (leave blank if no battery)"
-            value={batteryCapacityKwh}
-            onChange={(e) => setBatteryCapacityKwh(e.target.value)}
-            className={inputClasses}
-          />
-        </div>
+        <SliderField
+          id="batteryCapacityKwh"
+          label="Battery size"
+          unit="kWh"
+          min={0}
+          max={20}
+          step={0.5}
+          value={batteryCapacityKwh}
+          onChange={setBatteryCapacityKwh}
+          helperText="Leave at 0 if no battery."
+        />
+
+        <SliderField
+          id="batteryCostGbp"
+          label="Battery cost — optional"
+          unit="£"
+          min={0}
+          max={10000}
+          step={50}
+          value={batteryCostGbp}
+          onChange={setBatteryCostGbp}
+          helperText="Portion of the system cost that's the battery — enables a battery-specific payback figure below."
+        />
       </div>
 
       <button

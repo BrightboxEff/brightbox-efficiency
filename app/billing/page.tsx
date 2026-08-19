@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import BillingActions from "@/components/BillingActions";
-
-const TRIAL_LENGTH_DAYS = 14;
+import { TRIAL_LENGTH_DAYS } from "@/lib/trial";
 
 export default async function BillingPage() {
   const supabase = createClient();

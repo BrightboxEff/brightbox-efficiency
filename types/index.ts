@@ -15,6 +15,17 @@ export interface CalculateRequest {
   segRatePencePerKwh?: number;
 }
 
+// What the form collects, a superset of CalculateRequest — batteryCostGbp
+// and roofType aren't API fields, they're used client-side (see
+// lib/insights.ts and lib/roofPresets.ts) to isolate the battery's own
+// payback and to pick the right roof-capacity assumption.
+export interface CalculatorFormValues extends CalculateRequest {
+  batteryCostGbp?: number;
+  roofType: string;
+  projectName?: string;
+  addressLine?: string;
+}
+
 export interface CalculateResponse {
   location: {
     postcode: string;

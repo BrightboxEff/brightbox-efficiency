@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
 body {
   background-color: #f5f1e8;
   color: #2b2b25;

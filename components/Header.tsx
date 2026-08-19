@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { BRAND } from "@/lib/brand";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "@/components/LogoutButton";
+import BrandLockup from "@/components/BrandLockup";
+
+const navLinkClasses = "text-sm font-medium text-charcoal/70 transition hover:text-moss";
 
 export default async function Header() {
   const supabase = createClient();
@@ -10,24 +12,44 @@ export default async function Header() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="bg-moss">
+    <header className="border-b border-border-muted bg-cream">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex flex-col leading-tight">
-          <span className="text-lg font-semibold text-cream">{BRAND.productName}</span>
-          <span className="text-xs text-cream/70">{BRAND.name}</span>
+        <Link href="/">
+          <BrandLockup size="lg" />
         </Link>
 
-        {user && (
-          <nav className="flex items-center gap-6">
-            <Link href="/" className="text-sm font-medium text-cream/80 transition hover:text-cream">
-              Calculator
-            </Link>
-            <Link href="/settings" className="text-sm font-medium text-cream/80 transition hover:text-cream">
-              Settings
-            </Link>
-            <LogoutButton />
-          </nav>
-        )}
+        <nav className="flex items-center gap-6">
+          <Link href="/calculator" className={navLinkClasses}>
+            Calculator
+          </Link>
+          <Link href="/maintenance" className={navLinkClasses}>
+            Maintenance Consultation
+          </Link>
+          <Link href="/tutoring" className={navLinkClasses}>
+            Interview Tutoring
+          </Link>
+
+          {user ? (
+            <>
+              <Link href="/settings" className={navLinkClasses}>
+                Settings
+              </Link>
+              <LogoutButton />
+            </>
+          ) : (
+            <>
+              <Link href="/login" className={navLinkClasses}>
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-md bg-moss px-3 py-1.5 text-sm font-medium text-cream transition hover:bg-moss/90"
+              >
+                Start free trial
+              </Link>
+            </>
+          )}
+        </nav>
       </div>
     </header>
   );

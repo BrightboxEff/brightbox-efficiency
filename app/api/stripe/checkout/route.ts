@@ -45,7 +45,7 @@ export async function POST() {
     customer: customerId,
     client_reference_id: user.id,
     line_items: [{ price: process.env.STRIPE_PRICE_ID!, quantity: 1 }],
-    success_url: `${siteUrl}/?checkout=success`,
+    success_url: `${siteUrl}/calculator?checkout=success`,
     cancel_url: `${siteUrl}/billing`,
   });
 
