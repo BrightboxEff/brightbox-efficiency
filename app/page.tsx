@@ -2,7 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/lib/brand";
 import QuickEstimateWidget from "@/components/QuickEstimateWidget";
+import HeroCarousel from "@/components/HeroCarousel";
 import { CalculatorIcon, MaintenanceIcon, TutoringIcon, SurveyIcon } from "@/components/ServiceIcons";
+
+const heroSlides = [
+  { src: "/hero-rooftop.jpg", alt: "Commercial rooftop solar installation" },
+  { src: "/car-paint-robots.jpg", alt: "Automotive production line robotics" },
+  { src: "/rooftop-site-photo.jpg", alt: "Large-scale commercial rooftop solar array" },
+];
 
 const links = [
   {
@@ -48,14 +55,7 @@ export default function LandingPage() {
     <div>
       <section className="relative overflow-hidden rounded-2xl">
         <div className="relative w-full py-14 sm:py-20">
-          <Image
-            src="/hero-rooftop.jpg"
-            alt="Commercial rooftop solar installation"
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 1024px"
-            className="object-cover"
-          />
+          <HeroCarousel slides={heroSlides} />
           <div className="absolute inset-0 bg-charcoal/55" />
           <div className="relative flex flex-col items-center justify-center px-6 text-center">
             <Image
