@@ -32,10 +32,12 @@ const PUBLIC_PATHS = [
   "/survey",
   "/about",
   "/terms",
+  "/resources",
   "/api/stripe/webhook",
   "/api/tutoring-checkout",
   "/api/survey/submit",
   "/api/survey/upload",
+  "/api/quick-estimate",
 ];
 const AUTH_ONLY_PATHS = [
   "/billing",

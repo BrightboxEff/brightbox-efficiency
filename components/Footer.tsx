@@ -18,6 +18,10 @@ export default function Footer() {
             About Us
           </Link>{" "}
           ·{" "}
+          <Link href="/resources" className="underline underline-offset-2">
+            Resources
+          </Link>{" "}
+          ·{" "}
           <Link href="/terms" className="underline underline-offset-2">
             Terms &amp; Conditions
           </Link>

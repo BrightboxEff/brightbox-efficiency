@@ -57,7 +57,7 @@ export default function MaintenanceConsultationPage() {
         <h2 className="text-lg font-semibold text-charcoal">Enquire for more</h2>
         <p className="mt-2 text-sm text-charcoal/70">
           Every site is different, so maintenance consultation is scoped individually rather than
-          sold as a fixed package. Tell us a bit about your setup and we'll get back to you.
+          sold as a fixed package. Tell us a bit about your setup and we&apos;ll get back to you.
         </p>
         <a
           href={`mailto:${BRAND.contactEmail}?subject=${encodeURIComponent("Maintenance consultation enquiry")}`}
