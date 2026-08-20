@@ -13,8 +13,8 @@ export default function AboutPage() {
         <Image
           src="/paul-headshot.png"
           alt="Paul, founder of Brightbox Efficiency"
-          width={200}
-          height={235}
+          width={175}
+          height={175}
           className="h-20 w-20 shrink-0 rounded-full border-2 border-moss object-cover sm:h-24 sm:w-24"
         />
         <div>
