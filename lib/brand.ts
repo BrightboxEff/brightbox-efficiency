@@ -7,7 +7,7 @@
 
 export const BRAND = {
   name: "Brightbox Efficiency Consultants",
-  productName: "Brightbox Solar Payback Calculator",
+  productName: "Brightbox Efficiency",
   tagline: "Rooted in reliability. Driven by efficiency.",
   colors: {
     mossGreen: "#4A5D3A",   // primary — buttons, headers, nav

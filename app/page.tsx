@@ -37,9 +37,10 @@ const links = [
 ];
 
 const stats = [
-  { value: "£650k+", label: "in recurring annual utility savings identified" },
-  { value: "10+ years", label: "hands-on solar & BESS asset experience" },
-  { value: "90+", label: "operational solar assets managed" },
+  { value: "£2m+", label: "saved in utility costs across large-scale logistics operations" },
+  { value: "20+ years", label: "in engineering & maintenance practices" },
+  { value: "500MW+", label: "in renewable assets managed end-to-end, globally" },
+  { value: "Qualified", label: "Solar Consultant Expert, REI certified" },
 ];
 
 export default function LandingPage() {
@@ -92,7 +93,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <section className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label} className="rounded-lg border border-border-muted bg-white p-5 text-center shadow-sm">
             <p className="text-2xl font-semibold text-moss">{s.value}</p>
