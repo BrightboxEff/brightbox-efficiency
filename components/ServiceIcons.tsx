@@ -58,3 +58,32 @@ export function SurveyIcon(props: { className?: string }) {
     </svg>
   );
 }
+
+export function CostIcon(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={props.className} {...shared}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M14.5 8.8c-.4-.7-1.3-1.2-2.5-1.2-1.7 0-3 1-3 2.4s1.3 2 3 2.4c1.7.4 3 1 3 2.4 0 1.4-1.3 2.4-3 2.4-1.2 0-2.1-.5-2.5-1.2" />
+      <path d="M12 6v1.6M12 16.4V18" />
+    </svg>
+  );
+}
+
+export function BatteryIcon(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={props.className} {...shared}>
+      <rect x="3" y="7" width="16" height="10" rx="1.5" />
+      <path d="M20.5 10v4" />
+      <path d="M12.5 9.5 9.5 13h3l-3 3.5" />
+    </svg>
+  );
+}
+
+export function ReceiptIcon(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={props.className} {...shared}>
+      <path d="M6 3.5h12v17l-2.2-1.5-2.2 1.5-2.1-1.5-2.1 1.5-2.2-1.5L6 20.5z" />
+      <path d="M8.5 8h7M8.5 11.5h7M8.5 15h4.5" />
+    </svg>
+  );
+}

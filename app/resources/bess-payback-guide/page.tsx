@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BatteryIcon } from "@/components/ServiceIcons";
 
 export const metadata = {
   title: "BESS Payback Guide — Brightbox Efficiency",
@@ -10,9 +11,12 @@ export default function BessPaybackGuidePage() {
       <Link href="/resources" className="text-sm text-moss underline underline-offset-2">
         ← Resources
       </Link>
-      <h1 className="mt-3 text-3xl font-semibold text-charcoal">
-        BESS payback: what actually affects it
-      </h1>
+      <div className="mt-3 flex items-center gap-3">
+        <BatteryIcon className="h-8 w-8 shrink-0 text-moss" />
+        <h1 className="text-3xl font-semibold text-charcoal">
+          BESS payback: what actually affects it
+        </h1>
+      </div>
 
       <div className="mt-6 space-y-5 text-charcoal/80">
         <p>

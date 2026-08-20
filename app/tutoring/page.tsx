@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import TutoringPurchaseForm from "@/components/TutoringPurchaseForm";
 
 export default function TutoringPage() {
@@ -34,6 +35,23 @@ export default function TutoringPage() {
           Payment was cancelled — no charge was made.
         </p>
       )}
+
+      <div className="mt-8 flex items-center gap-4 rounded-lg border border-border-muted bg-white p-5 shadow-sm">
+        <Image
+          src="/paul-headshot.png"
+          alt="Paul, your tutor"
+          width={175}
+          height={175}
+          className="h-16 w-16 shrink-0 rounded-full border-2 border-moss object-cover sm:h-20 sm:w-20"
+        />
+        <div>
+          <p className="font-medium text-charcoal">Your tutor: Paul Johnson</p>
+          <p className="mt-1 text-sm text-charcoal/70">
+            20+ years in engineering, with real interview-panel experience from hiring loops —
+            coaching drawn from what actually gets candidates through the door, not generic tips.
+          </p>
+        </div>
+      </div>
 
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div className="rounded-lg border border-border-muted bg-white p-6 shadow-sm">
