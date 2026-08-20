@@ -20,6 +20,9 @@ export default function AboutPage() {
         <div>
           <h1 className="text-3xl font-semibold text-charcoal">About Brightbox Efficiency</h1>
           <p className="mt-1 text-sm italic text-charcoal/60">{BRAND.tagline}</p>
+          <p className="mt-2 text-sm text-charcoal/80">
+            <span className="font-medium">Paul Johnson</span> — Founder &amp; CEO
+          </p>
         </div>
       </div>
 
