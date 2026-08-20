@@ -16,7 +16,7 @@ const links = [
   {
     href: "/maintenance",
     title: "Maintenance Consultation",
-    description: "Maintenance strategy, preventative planning, and O&M oversight for existing solar and BESS installations.",
+    description: "Maintenance strategy, preventative planning, and contractor oversight across HVAC, conveyance, robotics, and solar/BESS equipment.",
     cta: "Learn more",
     Icon: MaintenanceIcon,
   },
