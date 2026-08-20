@@ -30,6 +30,8 @@ const PUBLIC_PATHS = [
   "/maintenance",
   "/tutoring",
   "/survey",
+  "/about",
+  "/terms",
   "/api/stripe/webhook",
   "/api/tutoring-checkout",
   "/api/survey/submit",

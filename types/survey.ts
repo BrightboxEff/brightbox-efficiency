@@ -27,6 +27,13 @@ export const MOTIVATIONS = [
   { value: "improving_reliability", label: "Improving energy reliability" },
 ] as const;
 
+export interface EquipmentItem {
+  name: string;
+  quantity: number;
+  estimatedWattage?: number;
+  hoursPerDay?: number;
+}
+
 export interface EnergySurveyFormValues {
   firstName: string;
   lastName: string;
@@ -37,6 +44,7 @@ export interface EnergySurveyFormValues {
   consumptionIntensity: ConsumptionIntensity;
   motivations: string[];
   hasUtilityBills: boolean;
+  equipment: EquipmentItem[];
   largestConsumers: string;
   urgency: number;
   termsAccepted: boolean;

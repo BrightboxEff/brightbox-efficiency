@@ -1,0 +1,119 @@
+import Image from "next/image";
+import Link from "next/link";
+import { BRAND } from "@/lib/brand";
+
+export const metadata = {
+  title: "About Us — Brightbox Efficiency",
+};
+
+export default function AboutPage() {
+  return (
+    <div className="mx-auto max-w-3xl py-12">
+      <h1 className="text-3xl font-semibold text-charcoal">About Brightbox Efficiency</h1>
+      <p className="mt-2 text-sm italic text-charcoal/60">{BRAND.tagline}</p>
+
+      <div className="mt-8 space-y-6 text-charcoal/80">
+        <p>
+          Brightbox Efficiency Consultants is an independent engineering advisory practice
+          focused on one problem: energy waste is an invisible drain on cash flow for most
+          commercial and industrial sites, and it&apos;s almost always fixable without disrupting
+          day-to-day operations.
+        </p>
+        <p>
+          Our approach is built on frontline engineering experience — over a decade working
+          across solar deployments, Battery Energy Storage System (BESS) roadmaps, and
+          facility-scale efficiency programmes, including delivering over £650,000 in recurring
+          annual utility savings at major fulfillment networks. We bring that same
+          engineering-first, numbers-led method to every site we work with, whatever its size.
+        </p>
+        <p>
+          We work remotely and diagnose from data: utility invoices, meter logs, and a clear
+          picture of what equipment is actually running on-site. That means no disruptive site
+          visits for most engagements, no guesswork, and recommendations that are grounded in
+          what your bills and equipment profile actually show — not generic checklists.
+        </p>
+
+        <h2 className="pt-4 text-xl font-semibold text-charcoal">Credentials &amp; experience</h2>
+        <p>
+          Brightbox is led by a Senior Renewables Asset Manager currently responsible for a
+          multi-country onsite solar portfolio at a global logistics and technology company —
+          90+ operational solar assets totalling over 80 MWdc, plus oversight support across an
+          international portfolio of 400+ assets exceeding 550 MWdc across the US, India, Japan,
+          Australia, and Europe. That day-to-day role covers generation performance monitoring,
+          Solar &amp; Battery Energy Storage System (BESS) expansion feasibility, third-party PPA
+          deployment, O&amp;M contractor management, wind-risk structural audits, and renewable
+          energy certificate (REGO) accreditation with Ofgem.
+        </p>
+        <div className="flex flex-col items-center gap-4 rounded-lg border border-border-muted bg-cream p-6 sm:flex-row">
+          <Image
+            src="/rei-badge.png"
+            alt="Solar Energy Consultant Expert certification badge, The Renewable Energy Institute, 2025 Achiever"
+            width={470}
+            height={470}
+            className="h-32 w-32 shrink-0"
+          />
+          <div>
+            <p className="font-medium text-charcoal">Solar Energy Consultant Expert</p>
+            <p className="mt-1 text-sm text-charcoal/70">
+              The Renewable Energy Institute — CPD Certified, awarded November 2025.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="pt-4 text-xl font-semibold text-charcoal">What we do</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Solar payback modelling</strong> — postcode-based generation, savings, and
+            payback calculations for installers and homeowners via our{" "}
+            <Link href="/calculator" className="text-moss underline underline-offset-2">
+              solar payback calculator
+            </Link>
+            .
+          </li>
+          <li>
+            <strong>Energy efficiency surveys</strong> — a remote, bills-based assessment of your
+            site&apos;s equipment and consumption, resulting in a practical, engineer-reviewed
+            savings report. See{" "}
+            <Link href="/survey" className="text-moss underline underline-offset-2">
+              the energy survey
+            </Link>
+            .
+          </li>
+          <li>
+            <strong>Maintenance consultation</strong> — ongoing system health checks and
+            maintenance planning for existing installations.
+          </li>
+          <li>
+            <strong>Engineering interview tutoring</strong> — 1:1 coaching for technical and
+            engineering interviews, drawing on real hiring-loop experience.
+          </li>
+        </ul>
+
+        <h2 className="pt-4 text-xl font-semibold text-charcoal">Advisory, not installation</h2>
+        <p>
+          We provide independent engineering advice and analysis — we don&apos;t carry out
+          physical installations or site work ourselves. Where useful, we can make professional
+          introductions to vetted local and national suppliers and contractors to help you get
+          quotes for implementation, but final execution is always your decision. Full detail is
+          in our{" "}
+          <Link href="/terms" className="text-moss underline underline-offset-2">
+            Terms &amp; Conditions
+          </Link>
+          .
+        </p>
+
+        <h2 className="pt-4 text-xl font-semibold text-charcoal">Get in touch</h2>
+        <p>
+          Questions about any of our services? Email us at{" "}
+          <a
+            href={`mailto:${BRAND.contactEmail}`}
+            className="font-medium text-moss underline underline-offset-2"
+          >
+            {BRAND.contactEmail}
+          </a>
+          .
+        </p>
+      </div>
+    </div>
+  );
+}

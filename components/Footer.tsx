@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BRAND } from "@/lib/brand";
 import BrandLockup from "@/components/BrandLockup";
 
@@ -11,7 +12,15 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved. ·{" "}
           <a href={`mailto:${BRAND.contactEmail}`} className="underline underline-offset-2">
             {BRAND.contactEmail}
-          </a>
+          </a>{" "}
+          ·{" "}
+          <Link href="/about" className="underline underline-offset-2">
+            About Us
+          </Link>{" "}
+          ·{" "}
+          <Link href="/terms" className="underline underline-offset-2">
+            Terms &amp; Conditions
+          </Link>
         </p>
       </div>
     </footer>

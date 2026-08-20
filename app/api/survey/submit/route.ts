@@ -1,14 +1,21 @@
 /**
  * app/api/survey/submit/route.ts
- * Stores an energy efficiency survey submission and creates a Stripe
- * Checkout session for the £200 survey fee plus any optional £60/hour
- * follow-up consultation hours. Public — no Brightbox account required.
+ * Stores an energy efficiency survey submission. Pricing is tiered by the
+ * customer's annual spend bracket (lib/pricing.ts SURVEY_TIERS):
+ *  - Kickstarter (under £20k): purchasable — creates a Stripe Checkout
+ *    session for the flat fee plus any optional consultation hours.
+ *  - Enterprise Blueprint / Global Deep Dive: not sold online — these are
+ *    scoped individually, so instead of a checkout session we email the
+ *    team an availability request and confirm to the customer by email.
+ * Public — no Brightbox account required.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/server";
-import { ENERGY_SURVEY_FEE_GBP, CONSULTATION_HOURLY_RATE_GBP } from "@/lib/pricing";
+import { BRAND } from "@/lib/brand";
+import { CONSULTATION_HOURLY_RATE_GBP, SURVEY_TIERS, type SurveyTierKey } from "@/lib/pricing";
+import { sendSurveyTierInquiryEmail, sendSurveyTierInquiryConfirmationEmail } from "@/lib/email";
 import type { EnergySurveyFormValues } from "@/types/survey";
 
 const MAX_CONSULTATION_HOURS = 20;
@@ -26,6 +33,7 @@ export async function POST(req: NextRequest) {
     consumptionIntensity,
     motivations,
     hasUtilityBills,
+    equipment,
     largestConsumers,
     urgency,
     termsAccepted,
@@ -35,10 +43,20 @@ export async function POST(req: NextRequest) {
   if (!firstName || !lastName || !businessName || !email || !email.includes("@")) {
     return NextResponse.json({ error: "Missing required contact details." }, { status: 400 });
   }
+  const tier = SURVEY_TIERS[annualSpendBracket as SurveyTierKey];
+  if (!tier) {
+    return NextResponse.json({ error: "Please select your annual spend bracket." }, { status: 400 });
+  }
+  const validEquipment = (equipment ?? []).filter((item) => item?.name?.trim().length > 0);
+  if (validEquipment.length === 0) {
+    return NextResponse.json({ error: "Please list at least one piece of equipment." }, { status: 400 });
+  }
   if (!termsAccepted) {
     return NextResponse.json({ error: "You must accept the terms to continue." }, { status: 400 });
   }
-  const hours = Math.min(MAX_CONSULTATION_HOURS, Math.max(0, Number(consultationHours) || 0));
+  const hours = tier.purchasable
+    ? Math.min(MAX_CONSULTATION_HOURS, Math.max(0, Number(consultationHours) || 0))
+    : 0;
 
   const supabase = createAdminClient();
 
@@ -54,10 +72,12 @@ export async function POST(req: NextRequest) {
       consumption_intensity: consumptionIntensity,
       motivations,
       has_utility_bills: hasUtilityBills,
-      largest_consumers: largestConsumers,
+      equipment: validEquipment,
+      largest_consumers: largestConsumers || null,
       urgency,
       terms_accepted: termsAccepted,
       consultation_hours: hours,
+      status: tier.purchasable ? "pending_payment" : "inquiry",
     })
     .select("id")
     .single();
@@ -65,6 +85,21 @@ export async function POST(req: NextRequest) {
   if (insertError || !submission) {
     console.error("Failed to create survey submission:", insertError);
     return NextResponse.json({ error: "Could not save your submission." }, { status: 500 });
+  }
+
+  if (!tier.purchasable) {
+    await Promise.all([
+      sendSurveyTierInquiryEmail({
+        to: BRAND.contactEmail,
+        submitterEmail: email,
+        businessName,
+        tierName: tier.name,
+        fromGbp: tier.fromGbp ?? 0,
+      }),
+      sendSurveyTierInquiryConfirmationEmail({ to: email, firstName, tierName: tier.name }),
+    ]);
+
+    return NextResponse.json({ inquiry: true });
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -80,8 +115,8 @@ export async function POST(req: NextRequest) {
     {
       price_data: {
         currency: "gbp",
-        unit_amount: ENERGY_SURVEY_FEE_GBP * 100,
-        product_data: { name: "Energy Efficiency Survey" },
+        unit_amount: (tier.feeGbp ?? 0) * 100,
+        product_data: { name: `Energy Efficiency Survey — ${tier.name}` },
       },
       quantity: 1,
     },

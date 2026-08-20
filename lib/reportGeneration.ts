@@ -8,7 +8,7 @@
  */
 
 import { createAdminClient } from "@/lib/supabase/server";
-import { SPEND_BRACKETS, MOTIVATIONS, type ConsumptionIntensity } from "@/types/survey";
+import { SPEND_BRACKETS, MOTIVATIONS, type ConsumptionIntensity, type EquipmentItem } from "@/types/survey";
 
 const MODEL = "claude-sonnet-5";
 const BUCKET = "utility-bills";
@@ -25,7 +25,8 @@ interface SubmissionRow {
   operations_description: string;
   consumption_intensity: ConsumptionIntensity;
   motivations: string[];
-  largest_consumers: string;
+  equipment: EquipmentItem[];
+  largest_consumers: string | null;
   urgency: number;
   bill_file_paths: string[];
 }
@@ -41,7 +42,7 @@ export async function generateEnergyReport(submissionId: string): Promise<string
   const { data: submission, error } = await supabase
     .from("energy_survey_submissions")
     .select(
-      "first_name, last_name, business_name, annual_spend_bracket, operations_description, consumption_intensity, motivations, largest_consumers, urgency, bill_file_paths"
+      "first_name, last_name, business_name, annual_spend_bracket, operations_description, consumption_intensity, motivations, equipment, largest_consumers, urgency, bill_file_paths"
     )
     .eq("id", submissionId)
     .single();
@@ -86,26 +87,45 @@ export async function generateEnergyReport(submissionId: string): Promise<string
     .map((key) => `${key}: ${row.consumption_intensity[key]}`)
     .join(", ");
 
+  const equipmentSummary = (row.equipment ?? [])
+    .map((item) => {
+      const parts = [`${item.quantity}x ${item.name}`];
+      if (item.estimatedWattage) parts.push(`~${item.estimatedWattage}W each`);
+      if (item.hoursPerDay) parts.push(`~${item.hoursPerDay}h/day`);
+      if (item.estimatedWattage && item.hoursPerDay) {
+        const dailyKwh = (item.estimatedWattage * item.quantity * item.hoursPerDay) / 1000;
+        parts.push(`≈${dailyKwh.toFixed(1)} kWh/day, ≈${(dailyKwh * 365).toFixed(0)} kWh/year combined`);
+      }
+      return `- ${parts.join(", ")}`;
+    })
+    .join("\n");
+
   const contextText = `
 Business: ${row.business_name} (contact: ${row.first_name} ${row.last_name})
 Estimated annual electricity/gas spend: ${labelFor(SPEND_BRACKETS, row.annual_spend_bracket)}
 Operations: ${row.operations_description}
 Self-rated energy consumption intensity by area: ${consumptionSummary}
 Primary motivations: ${row.motivations.map((m) => labelFor(MOTIVATIONS, m)).join(", ")}
-Largest consuming items/equipment they identified: ${row.largest_consumers}
 Urgency (1-5, 5 = most urgent): ${row.urgency}
+
+Equipment profile (as reported by the customer; wattage/hours are estimates where given):
+${equipmentSummary || "(none itemised)"}
+${row.largest_consumers ? `\nAdditional notes on biggest energy users: ${row.largest_consumers}` : ""}
 
 Attached: their utility bills for the last 12 months.
 `.trim();
 
-  const systemPrompt = `You are an energy efficiency consultant at Brightbox Efficiency Consultants, drafting a report for a paying customer based on their survey answers and attached utility bills.
+  const systemPrompt = `You are an energy efficiency consultant at Brightbox Efficiency Consultants, drafting a report for a paying customer based on their survey answers and attached utility bills. Match the depth and style of Brightbox's own hand-written energy scorecards: concrete, numbers-led, and tied to specific equipment — not generic advice.
 
-Write a clear, practical report as a simple HTML fragment (only <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em> tags — no <html>/<head>/<body>, no inline styles, no <script>). Structure:
-1. A short summary of what their bills show (usage patterns, notable spend, any anomalies you can see).
-2. 4-6 specific, practical energy-saving hints and tips tailored to their described operations, self-rated consumption intensity, and largest consuming items.
-3. A "Suggested equipment & further reading" section naming relevant equipment categories (e.g. LED retrofit lighting, voltage optimisation, smart HVAC controls, sub-metering) — describe categories in plain text, do NOT invent or link to specific vendor/product URLs since you cannot verify they exist or are current. You may link to well-known, stable general resources such as https://www.gov.uk/business-energy-efficiency or https://www.energysavingtrust.org.uk if genuinely relevant.
+Write the report as a simple HTML fragment (only <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em>, and <table>/<thead>/<tbody>/<tr>/<th>/<td> tags — no <html>/<head>/<body>, no inline styles, no <script>). Structure:
 
-This is a DRAFT that a human consultant will review and edit before it's sent — write it as a solid first pass, not final copy. Be specific and grounded in what's actually in the bills and survey answers; don't pad with generic advice unconnected to their situation.`;
+1. <h2>Executive Summary</h2> — headline figures: their total annual spend bracket, an estimated savings percentage range, and the single biggest opportunity you can identify from the bills and equipment profile.
+2. <h2>Bill Summary</h2> — what the attached utility bills actually show: usage patterns, seasonal variation, notable spend, any anomalies. If the bills contain enough monthly data, present it as a small table.
+3. <h2>Facility Equipment Profile</h2> — restate the customer's reported equipment as a table (Item, Quantity, Est. Wattage, Est. Daily Use, Est. Annual kWh) using the figures given, computing annual kWh where wattage and hours/day are both present. Flag which items look like the largest consumers.
+4. <h2>Findings & Recommended Initiatives</h2> — 4-6 numbered findings, each with: Current situation, Recommendation, Suggested product or fix (you MAY name a specific, well-known, plausible product type and an indicative UK price in plain text, e.g. "Smart plug timer (~£8-15)" or "LED T8 tube retrofit (~£4-7 per tube)" — do NOT invent a hyperlink or a specific vendor URL, since you cannot verify one exists), Estimated annual saving, and rough payback if calculable.
+5. <h2>Further Reading</h2> — 1-2 stable, well-known general resources if genuinely relevant, e.g. https://www.gov.uk/business-energy-efficiency or https://www.energysavingtrust.org.uk.
+
+This is a DRAFT that a human consultant will review, add their own expertise to, and edit before it's sent — write it as a strong, specific first pass, not final copy. Ground every figure in what's actually in the bills and the equipment profile; state assumptions explicitly rather than inventing precision you don't have.`;
 
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",

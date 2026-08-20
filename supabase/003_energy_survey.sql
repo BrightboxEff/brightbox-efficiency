@@ -27,6 +27,8 @@ create table if not exists public.energy_survey_submissions (
   stripe_checkout_session_id text,
   status text not null default 'pending_payment',
   -- pending_payment | paid | bills_uploaded | report_ready | report_sent
+  -- | inquiry (Enterprise Blueprint / Global Deep Dive tiers — scoped
+  --   individually, not sold online; the team follows up by email)
 
   -- Secure bill upload
   upload_token uuid not null default gen_random_uuid(),

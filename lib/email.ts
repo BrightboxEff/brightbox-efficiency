@@ -103,6 +103,49 @@ export async function sendTutoringPurchaseEmail(input: TutoringPurchaseEmailInpu
   });
 }
 
+export async function sendSurveyTierInquiryEmail(input: {
+  to: string;
+  submitterEmail: string;
+  businessName: string;
+  tierName: string;
+  fromGbp: number;
+}): Promise<void> {
+  const { to, submitterEmail, businessName, tierName, fromGbp } = input;
+
+  const html = `
+    <h2>New ${tierName} availability request</h2>
+    <p><strong>From:</strong> ${businessName} (${submitterEmail})</p>
+    <p>This falls into the <strong>${tierName}</strong> tier (from £${fromGbp.toLocaleString()}),
+    which isn't sold online — they're requesting availability for a custom-scoped engagement.
+    Reply to them directly to arrange a quote.</p>
+  `;
+
+  await sendEmail({
+    to,
+    replyTo: submitterEmail,
+    subject: `${tierName} availability request — ${businessName}`,
+    html,
+  });
+}
+
+export async function sendSurveyTierInquiryConfirmationEmail(input: {
+  to: string;
+  firstName: string;
+  tierName: string;
+}): Promise<void> {
+  const { to, firstName, tierName } = input;
+
+  const html = `
+    <p>Hi ${firstName},</p>
+    <p>Thanks for your interest in the <strong>${tierName}</strong> energy efficiency
+    assessment. This is a custom-scoped engagement, so it isn't booked online — we've received
+    your details and a member of the Brightbox team will be in touch by email shortly to discuss
+    availability and confirm a quote for your site.</p>
+  `;
+
+  await sendEmail({ to, subject: `We've received your ${tierName} request — Brightbox Efficiency`, html });
+}
+
 export async function sendSurveyBillRequestEmail(input: {
   to: string;
   firstName: string;

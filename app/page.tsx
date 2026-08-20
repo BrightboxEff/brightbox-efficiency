@@ -13,7 +13,7 @@ const links = [
   {
     href: "/maintenance",
     title: "Maintenance Consultation",
-    description: "Ongoing system health checks and maintenance planning for existing installations.",
+    description: "Maintenance strategy, preventative planning, and O&M oversight for existing solar and BESS installations.",
     cta: "Learn more",
   },
   {
