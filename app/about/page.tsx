@@ -9,8 +9,19 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl py-12">
-      <h1 className="text-3xl font-semibold text-charcoal">About Brightbox Efficiency</h1>
-      <p className="mt-2 text-sm italic text-charcoal/60">{BRAND.tagline}</p>
+      <div className="flex items-center gap-5">
+        <Image
+          src="/paul-headshot.png"
+          alt="Paul, founder of Brightbox Efficiency"
+          width={200}
+          height={235}
+          className="h-20 w-20 shrink-0 rounded-full border-2 border-moss object-cover sm:h-24 sm:w-24"
+        />
+        <div>
+          <h1 className="text-3xl font-semibold text-charcoal">About Brightbox Efficiency</h1>
+          <p className="mt-1 text-sm italic text-charcoal/60">{BRAND.tagline}</p>
+        </div>
+      </div>
 
       <div className="mt-8 space-y-6 text-charcoal/80">
         <p>
@@ -20,9 +31,11 @@ export default function AboutPage() {
           day-to-day operations.
         </p>
         <p>
-          Our approach is built on frontline engineering experience — over a decade working
-          across solar deployments, Battery Energy Storage System (BESS) roadmaps, and
-          facility-scale efficiency programmes, including delivering over £650,000 in recurring
+          Our approach is built on over 20 years of frontline engineering and maintenance
+          practice — starting in engineering roles within the automotive industry before moving
+          into renewable energy asset management. That grounding in hands-on maintenance
+          discipline now spans solar deployments, Battery Energy Storage System (BESS) roadmaps,
+          and facility-scale efficiency programmes, delivering over £2,000,000 in recurring
           annual utility savings at major fulfillment networks. We bring that same
           engineering-first, numbers-led method to every site we work with, whatever its size.
         </p>
@@ -35,14 +48,13 @@ export default function AboutPage() {
 
         <h2 className="pt-4 text-xl font-semibold text-charcoal">Credentials &amp; experience</h2>
         <p>
-          Brightbox is led by a Senior Renewables Asset Manager currently responsible for a
-          multi-country onsite solar portfolio at a global logistics and technology company —
-          90+ operational solar assets totalling over 80 MWdc, plus oversight support across an
-          international portfolio of 400+ assets exceeding 550 MWdc across the US, India, Japan,
-          Australia, and Europe. That day-to-day role covers generation performance monitoring,
-          Solar &amp; Battery Energy Storage System (BESS) expansion feasibility, third-party PPA
-          deployment, O&amp;M contractor management, wind-risk structural audits, and renewable
-          energy certificate (REGO) accreditation with Ofgem.
+          Brightbox is led by a Senior Renewables Asset Manager with end-to-end responsibility
+          for renewable energy assets totalling over 500MW globally, across a multi-country
+          onsite solar portfolio spanning the US, India, Japan, Australia, and Europe. That
+          day-to-day role covers generation performance monitoring, Solar &amp; Battery Energy
+          Storage System (BESS) expansion feasibility, third-party PPA deployment, O&amp;M
+          contractor management, wind-risk structural audits, and renewable energy certificate
+          (REGO) accreditation with Ofgem.
         </p>
         <div className="flex flex-col items-center gap-4 rounded-lg border border-border-muted bg-cream p-6 sm:flex-row">
           <Image
@@ -58,6 +70,16 @@ export default function AboutPage() {
               The Renewable Energy Institute — CPD Certified, awarded November 2025.
             </p>
           </div>
+        </div>
+
+        <div className="overflow-hidden rounded-lg border border-border-muted">
+          <Image
+            src="/rooftop-site-photo.jpg"
+            alt="A large-scale commercial rooftop solar installation"
+            width={2000}
+            height={1500}
+            className="h-auto w-full object-cover"
+          />
         </div>
 
         <h2 className="pt-4 text-xl font-semibold text-charcoal">What we do</h2>
