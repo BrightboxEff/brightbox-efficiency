@@ -39,7 +39,7 @@ export default function QuickEstimateWidget() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-xl border border-cream/30 bg-charcoal/40 p-5 backdrop-blur-sm">
+    <div className="mx-auto w-full max-w-md rounded-xl border border-cream/30 bg-charcoal/70 p-5">
       <p className="text-sm font-medium text-cream">
         See a rough solar payback estimate for your postcode — no signup.
       </p>
