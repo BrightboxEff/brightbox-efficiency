@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { BRAND } from "@/lib/brand";
 
 export const metadata = {
@@ -44,8 +45,20 @@ const services = [
 export default function MaintenanceConsultationPage() {
   return (
     <div className="mx-auto max-w-3xl py-12">
-      <h1 className="text-3xl font-semibold text-charcoal">Maintenance Consultation</h1>
-      <p className="mt-3 text-charcoal/80">
+      <div className="relative h-40 overflow-hidden rounded-xl sm:h-52">
+        <Image
+          src="/canopy-solar-site.jpg"
+          alt="A large-scale commercial solar canopy installation"
+          fill
+          sizes="(max-width: 768px) 100vw, 768px"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-charcoal/45" />
+        <div className="relative flex h-full flex-col items-start justify-end p-6">
+          <h1 className="text-3xl font-semibold text-cream">Maintenance Consultation</h1>
+        </div>
+      </div>
+      <p className="mt-4 text-charcoal/80">
         Equipment loses value quietly — a missed fault, a slipping service schedule, or an
         underperforming asset can go unnoticed for months while it costs you uptime and money.
         Drawing on experience leading maintenance teams across HVAC, conveyance, robotics and
