@@ -7,11 +7,12 @@ export const metadata = {
 
 const equipmentTypes = [
   "HVAC & climate control",
+  "Air handling",
+  "Electrical",
+  "Mechanical",
+  "Lighting systems",
   "Conveyance & material handling",
-  "Robotics & automated painting systems",
-  "Welding equipment",
   "Solar PV & BESS",
-  "Wider facility & production equipment",
 ];
 
 const services = [
