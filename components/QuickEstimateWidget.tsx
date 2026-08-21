@@ -84,7 +84,7 @@ export default function QuickEstimateWidget() {
               <p className="text-lg font-semibold text-moss">
                 {result.paybackYears ? `${result.paybackYears}y` : "—"}
               </p>
-              <p className="text-[11px] text-charcoal/60">rough payback</p>
+              <p className="text-[11px] text-charcoal/60">estimated payback</p>
             </div>
           </div>
           <Link
