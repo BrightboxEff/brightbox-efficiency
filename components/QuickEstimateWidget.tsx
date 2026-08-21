@@ -43,18 +43,18 @@ export default function QuickEstimateWidget() {
       <p className="text-sm font-medium text-cream">
         See a rough solar payback estimate for your postcode — no signup.
       </p>
-      <form onSubmit={handleSubmit} className="mt-3 flex gap-2">
+      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input
           value={postcode}
           onChange={(e) => setPostcode(e.target.value)}
           placeholder="e.g. SW1A 1AA"
           required
-          className="min-w-0 flex-1 rounded-md border border-cream/40 bg-cream/95 px-3 py-2 text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-gold"
+          className="w-full min-w-0 rounded-md border border-cream/40 bg-cream/95 px-3 py-2 text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-gold sm:flex-1"
         />
         <button
           type="submit"
           disabled={loading}
-          className="shrink-0 rounded-md bg-gold px-4 py-2 text-sm font-medium text-charcoal transition hover:bg-gold/90 disabled:opacity-60"
+          className="w-full shrink-0 rounded-md bg-gold px-4 py-2 text-sm font-medium text-charcoal transition hover:bg-gold/90 disabled:opacity-60 sm:w-auto"
         >
           {loading ? "Checking…" : "Estimate"}
         </button>
