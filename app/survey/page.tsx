@@ -96,7 +96,7 @@ export default function SurveyPage() {
         </div>
       </section>
 
-      <div className="mt-10 max-w-2xl">
+      <div className="mt-10">
         <EnergySurveyForm />
       </div>
     </div>
