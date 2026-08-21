@@ -30,6 +30,24 @@ const articles = [
   },
 ];
 
+const suppliers = [
+  {
+    name: "Mitie",
+    scope: "National",
+    description: "Nationwide facilities and maintenance contractor.",
+  },
+  {
+    name: "Ranger Electrics",
+    scope: "Local",
+    description: "Local electrical contractor.",
+  },
+  {
+    name: "Emtec",
+    scope: "HVAC",
+    description: "HVAC and climate control specialist.",
+  },
+];
+
 export default function ResourcesIndexPage() {
   return (
     <div className="mx-auto max-w-3xl py-12">
@@ -68,6 +86,24 @@ export default function ResourcesIndexPage() {
               <p className="mt-1.5 text-sm text-charcoal/70">{a.description}</p>
             </div>
           </Link>
+        ))}
+      </div>
+
+      <h2 className="mt-10 text-lg font-semibold text-charcoal">Recommended suppliers</h2>
+      <p className="mt-1.5 text-sm text-charcoal/70">
+        Contractors we work with and can put you in touch with directly. Partnership details are
+        still being finalised — check back soon.
+      </p>
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {suppliers.map((s) => (
+          <div key={s.name} className="rounded-lg border border-border-muted bg-white p-5 shadow-sm">
+            <span className="inline-block rounded-full bg-cream px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-charcoal/60">
+              {s.scope}
+            </span>
+            <h3 className="mt-2 font-semibold text-charcoal">{s.name}</h3>
+            <p className="mt-1 text-sm text-charcoal/70">{s.description}</p>
+            <p className="mt-3 text-xs font-medium text-charcoal/40">Coming soon</p>
+          </div>
         ))}
       </div>
     </div>
