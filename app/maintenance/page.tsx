@@ -59,11 +59,11 @@ export default function MaintenanceConsultationPage() {
         </div>
       </div>
       <p className="mt-4 text-charcoal/80">
-        Equipment loses value quietly — a missed fault, a slipping service schedule, or an
+        Equipment loses value quietly. A missed fault, a slipping service schedule, or an
         underperforming asset can go unnoticed for months while it costs you uptime and money.
-        Drawing on experience leading maintenance teams across HVAC, conveyance, robotics and
-        automated painting systems, welding equipment, and solar/BESS assets, we help you build a
-        maintenance approach that catches that early, rather than finding out at the next annual
+        Drawing on experience leading maintenance teams across HVAC, conveyance, robotics
+        and automated painting systems, welding equipment, and solar/BESS assets, we help you
+        build a maintenance approach that catches problems early instead of at the next annual
         review.
       </p>
 

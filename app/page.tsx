@@ -71,18 +71,18 @@ export default function LandingPage() {
             </h1>
             <p className="mt-3 max-w-xl text-cream/90">{BRAND.tagline}</p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-8 flex flex-col items-center gap-3">
               <Link
                 href="/signup"
-                className="rounded-md bg-gold px-5 py-2.5 font-medium text-charcoal transition hover:bg-gold/90"
+                className="rounded-md bg-gold px-6 py-3 font-medium text-charcoal transition hover:bg-gold/90"
               >
                 Start free trial
               </Link>
               <Link
                 href="/calculator"
-                className="rounded-md border border-cream/70 px-5 py-2.5 font-medium text-cream transition hover:bg-cream/10"
+                className="text-sm font-medium text-cream/80 underline underline-offset-2 transition hover:text-cream"
               >
-                Try the calculator
+                Or go straight to the full calculator →
               </Link>
             </div>
 
@@ -93,13 +93,15 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-lg border border-border-muted bg-white p-5 text-center shadow-sm">
-            <p className="text-2xl font-semibold text-moss">{s.value}</p>
-            <p className="mt-1 text-sm text-charcoal/70">{s.label}</p>
-          </div>
-        ))}
+      <section className="mt-10 rounded-2xl bg-moss px-6 py-10">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="text-3xl font-semibold text-gold">{s.value}</p>
+              <p className="mt-2 text-sm text-cream/85">{s.label}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="mt-12">

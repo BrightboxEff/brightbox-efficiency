@@ -75,6 +75,20 @@ export default function EnergySurveyForm() {
     ? (tier.feeGbp ?? 0) + (wantsConsultation ? consultationHours * CONSULTATION_HOURLY_RATE_GBP : 0)
     : 0;
 
+  const progressChecks = [
+    firstName.trim().length > 0,
+    lastName.trim().length > 0,
+    businessName.trim().length > 0,
+    email.includes("@"),
+    !!tier,
+    operationsDescription.trim().length > 0,
+    hasUtilityBills !== null,
+    equipment.some((item) => item.name.trim().length > 0),
+    termsAccepted,
+  ];
+  const progressDone = progressChecks.filter(Boolean).length;
+  const progressPercent = Math.round((progressDone / progressChecks.length) * 100);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -158,6 +172,19 @@ export default function EnergySurveyForm() {
       <p className="mt-1 text-sm text-charcoal/70">
         Please provide your details below to assist with your operational footprint assessment.
       </p>
+
+      <div className="mt-4">
+        <div className="flex items-center justify-between text-xs text-charcoal/60">
+          <span>Form progress</span>
+          <span>{progressPercent}% complete</span>
+        </div>
+        <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-border-muted">
+          <div
+            className="h-full rounded-full bg-moss transition-all duration-300"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+      </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>

@@ -35,26 +35,27 @@ export default function AboutPage() {
         </p>
         <p>
           Our approach is built on over 20 years of frontline engineering and maintenance
-          practice — starting in engineering roles within the automotive industry before moving
+          practice, starting in engineering roles within the automotive industry before a move
           into renewable energy asset management. That grounding in hands-on maintenance
           discipline now spans solar deployments, Battery Energy Storage System (BESS) roadmaps,
-          and facility-scale efficiency programmes, delivering over £2,000,000 in recurring
-          annual utility savings at major fulfillment networks. We bring that same
-          engineering-first, numbers-led method to every site we work with, whatever its size.
+          and facility-scale efficiency programmes; to date it has delivered over £2,000,000 in
+          recurring annual utility savings at major fulfillment networks. The same
+          engineering-first, numbers-led method applies to every site we work with, whatever its
+          size.
         </p>
         <p>
-          We work remotely and diagnose from data: utility invoices, meter logs, and a clear
+          We work remotely, diagnosing from data: utility invoices, meter logs, and a clear
           picture of what equipment is actually running on-site. That means no disruptive site
-          visits for most engagements, no guesswork, and recommendations that are grounded in
-          what your bills and equipment profile actually show — not generic checklists.
+          visits for most engagements, no guesswork, and recommendations grounded in what your
+          bills and equipment profile actually show, rather than a generic checklist.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold text-charcoal">Credentials &amp; experience</h2>
         <p>
           Brightbox is led by a Senior Renewables Asset Manager with end-to-end responsibility
           for renewable energy assets totalling over 500MW globally, across a multi-country
-          onsite solar portfolio spanning the US, India, Japan, Australia, and Europe. That
-          day-to-day role covers generation performance monitoring, Solar &amp; Battery Energy
+          onsite solar portfolio spanning the US, India, Japan, Australia, and Europe. Day to
+          day, that role covers generation performance monitoring, Solar &amp; Battery Energy
           Storage System (BESS) expansion feasibility, third-party PPA deployment, O&amp;M
           contractor management, wind-risk structural audits, and renewable energy certificate
           (REGO) accreditation with Ofgem.
@@ -81,7 +82,7 @@ export default function AboutPage() {
             alt="A large-scale commercial rooftop solar installation"
             width={2000}
             height={1500}
-            className="h-auto w-full object-cover"
+            className="h-auto w-full object-cover contrast-[1.05] saturate-[0.92]"
           />
         </div>
 

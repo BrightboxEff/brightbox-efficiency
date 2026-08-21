@@ -19,7 +19,7 @@ async function sendEmail(input: { to: string; replyTo?: string; subject: string;
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Brightbox Solar Calculator <notifications@admin.brightboxefficiency.com>",
+      from: "Brightbox Efficiency <notifications@admin.brightboxefficiency.com>",
       to: [input.to],
       reply_to: input.replyTo,
       subject: input.subject,
@@ -221,4 +221,35 @@ export async function sendSurveyFinalReportEmail(input: {
   `;
 
   await sendEmail({ to, subject: "Your Brightbox energy efficiency report", html });
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+export async function sendContactFormEmail(input: {
+  to: string;
+  name: string;
+  fromEmail: string;
+  message: string;
+}): Promise<void> {
+  const { to, name, fromEmail, message } = input;
+
+  const html = `
+    <h2>New contact form message</h2>
+    <p><strong>From:</strong> ${escapeHtml(name)} (${escapeHtml(fromEmail)})</p>
+    <p>${escapeHtml(message).replace(/\n/g, "<br />")}</p>
+  `;
+
+  await sendEmail({
+    to,
+    replyTo: fromEmail,
+    subject: `Contact form — ${name}`,
+    html,
+  });
 }
