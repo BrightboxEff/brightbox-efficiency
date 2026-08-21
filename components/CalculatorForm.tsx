@@ -22,8 +22,8 @@ export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProp
   const [addressLine, setAddressLine] = useState("");
   const [roofSizeM2, setRoofSizeM2] = useState("");
   const [roofType, setRoofType] = useState(DEFAULT_ROOF_TYPE_ID);
-  const [systemSizeKwp, setSystemSizeKwp] = useState("");
-  const [systemCostGbp, setSystemCostGbp] = useState("");
+  const [systemSizeKwp, setSystemSizeKwp] = useState("4");
+  const [systemCostGbp, setSystemCostGbp] = useState("6500");
   const [batteryCapacityKwh, setBatteryCapacityKwh] = useState("");
   const [batteryCostGbp, setBatteryCostGbp] = useState("");
 
