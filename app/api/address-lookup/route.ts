@@ -39,10 +39,6 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  if (res.status === 404) {
-    return NextResponse.json({ addresses: [] });
-  }
-
   if (!res.ok) {
     return NextResponse.json(
       { error: "Address lookup failed. Please enter the address manually.", addresses: [] },
