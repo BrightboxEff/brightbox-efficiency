@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { CalculatorFormValues } from "@/types";
-import { DEFAULT_ROOF_TYPE_ID } from "@/lib/roofPresets";
+import { DEFAULT_ROOF_TYPE_ID, getRoofType } from "@/lib/roofPresets";
 import SliderField from "@/components/SliderField";
 import RoofSizeHelper from "@/components/RoofSizeHelper";
 import AddressLookup from "@/components/AddressLookup";
@@ -26,6 +26,32 @@ export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProp
   const [systemCostGbp, setSystemCostGbp] = useState("6500");
   const [batteryCapacityKwh, setBatteryCapacityKwh] = useState("");
   const [batteryCostGbp, setBatteryCostGbp] = useState("");
+  const [systemSizeAutoSet, setSystemSizeAutoSet] = useState(false);
+
+  const MAX_SYSTEM_SIZE_KWP = 20;
+
+  function snapSystemSizeToRoof(sizeM2: number, roofTypeId: string) {
+    if (!sizeM2) return;
+    const maxViableKwp = sizeM2 / getRoofType(roofTypeId).usableM2PerKwp;
+    const capped = Math.min(MAX_SYSTEM_SIZE_KWP, Math.round(maxViableKwp * 10) / 10);
+    setSystemSizeKwp(String(capped));
+    setSystemSizeAutoSet(true);
+  }
+
+  function handleRoofSizeChange(value: string) {
+    setRoofSizeM2(value);
+    snapSystemSizeToRoof(value ? Number(value) : 0, roofType);
+  }
+
+  function handleRoofTypeChange(id: string) {
+    setRoofType(id);
+    snapSystemSizeToRoof(roofSizeM2 ? Number(roofSizeM2) : 0, id);
+  }
+
+  function handleApplyRoofSize(size: number) {
+    setRoofSizeM2(String(size));
+    snapSystemSizeToRoof(size, roofType);
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -82,13 +108,13 @@ export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProp
             max={150}
             step={1}
             value={roofSizeM2}
-            onChange={setRoofSizeM2}
+            onChange={handleRoofSizeChange}
           />
           <div className="mt-3">
             <RoofSizeHelper
               roofTypeId={roofType}
-              onRoofTypeChange={setRoofType}
-              onApplyRoofSize={(size) => setRoofSizeM2(String(size))}
+              onRoofTypeChange={handleRoofTypeChange}
+              onApplyRoofSize={handleApplyRoofSize}
             />
           </div>
         </div>
@@ -102,7 +128,15 @@ export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProp
           max={20}
           step={0.1}
           value={systemSizeKwp}
-          onChange={setSystemSizeKwp}
+          onChange={(value) => {
+            setSystemSizeKwp(value);
+            setSystemSizeAutoSet(false);
+          }}
+          helperText={
+            systemSizeAutoSet
+              ? "Suggested from your roof size — drag or type to fine-tune."
+              : undefined
+          }
         />
 
         <SliderField
@@ -119,14 +153,14 @@ export default function CalculatorForm({ onSubmit, loading }: CalculatorFormProp
 
         <SliderField
           id="batteryCapacityKwh"
-          label="Battery size"
+          label="Battery size — optional"
           unit="kWh"
           min={0}
           max={20}
           step={0.5}
           value={batteryCapacityKwh}
           onChange={setBatteryCapacityKwh}
-          helperText="Leave at 0 if no battery."
+          helperText="Not sure if you need one? Most homes don't start with a battery — a typical size, if you want backup power or to store more of your own solar, is around 4-5kWh for a house this size. Leave at 0 to skip."
         />
 
         <SliderField
