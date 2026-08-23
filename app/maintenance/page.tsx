@@ -20,7 +20,7 @@ const team = [
     name: "Paul Johnson",
     title: "Founder & CEO",
     image: "/paul-headshot.png",
-    bio: "20+ years in engineering and maintenance practice — from automotive production lines to leading a 500MW+ global renewable energy portfolio, delivering over £2,000,000 in recurring utility savings. REI-certified Solar Energy Consultant Expert.",
+    bio: "20+ years in engineering and maintenance practice — from automotive production lines to leading a 500MW+ global renewable energy portfolio, delivering over £2m in recurring utility savings. REI-certified Solar Energy Consultant Expert.",
   },
   {
     name: "Steve Battle",

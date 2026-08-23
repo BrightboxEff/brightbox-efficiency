@@ -64,11 +64,10 @@ export default function LandingPage() {
             </h1>
             <p className="mt-3 max-w-xl text-cream/90">{BRAND.tagline}</p>
             <p className="mt-3 max-w-xl text-sm text-cream/80">
-              We&apos;re engineering specialists with deep, cross-discipline knowledge — from
-              renewable energy to industrial maintenance. We help businesses and homeowners cut
-              energy waste and plan their move to solar, backed by clever tools that show you the
-              numbers in minutes. We&apos;re advisors, not installers: independent, and not tied
-              to selling you any particular system.
+              Real numbers, not sales pitches. We&apos;re engineering specialists across renewable
+              energy and industrial maintenance — helping businesses and homeowners cut energy
+              waste and plan smarter, with independent advice and clever tools that show you the
+              numbers in minutes.
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3">
