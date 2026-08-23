@@ -1,12 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CostIcon, BatteryIcon, ReceiptIcon } from "@/components/ServiceIcons";
+import { CostIcon, BatteryIcon, ReceiptIcon, SunIcon } from "@/components/ServiceIcons";
 
 export const metadata = {
   title: "Resources — Brightbox Efficiency",
 };
 
 const articles = [
+  {
+    href: "/how-solar-works",
+    title: "How solar works",
+    description:
+      "From sunlight to your bill in one animated diagram — generation, self-use, batteries, and selling power back to the grid.",
+    Icon: SunIcon,
+  },
   {
     href: "/resources/commercial-solar-cost-uk",
     title: "How much does commercial solar cost in the UK?",

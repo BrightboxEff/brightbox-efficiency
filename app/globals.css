@@ -12,3 +12,53 @@ input[type="color"] {
   border: none;
   background: none;
 }
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes panel-glow {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.flow-wire {
+  stroke-dasharray: 7 7;
+  animation: flow-dash 1s linear infinite;
+}
+
+.sun-ray {
+  animation: sun-pulse 2.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.panel-glow {
+  animation: panel-glow 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-wire,
+  .sun-ray,
+  .panel-glow {
+    animation: none !important;
+  }
+}

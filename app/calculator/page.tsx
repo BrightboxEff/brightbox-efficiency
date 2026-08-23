@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { BRAND } from "@/lib/brand";
 import CalculatorClient from "@/components/CalculatorClient";
@@ -40,6 +41,12 @@ export default async function CalculatorPage() {
         Enter yours or your customer&apos;s details to estimate solar generation, savings, and
         payback period.
       </p>
+      <Link
+        href="/how-solar-works"
+        className="mt-2 inline-block text-sm font-medium text-moss underline underline-offset-2"
+      >
+        New to solar? See how it actually works →
+      </Link>
 
       <div className="mt-8">
         <CalculatorClient installer={installer} />
