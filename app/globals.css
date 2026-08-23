@@ -19,15 +19,9 @@ input[type="color"] {
   }
 }
 
-@keyframes sun-pulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(0.92);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.08);
+@keyframes sun-rotate {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -46,8 +40,9 @@ input[type="color"] {
   animation: flow-dash 1s linear infinite;
 }
 
-.sun-ray {
-  animation: sun-pulse 2.6s ease-in-out infinite;
+.sun-rays {
+  animation: sun-rotate 12s linear infinite;
+  transform-box: fill-box;
   transform-origin: center;
 }
 
@@ -57,7 +52,7 @@ input[type="color"] {
 
 @media (prefers-reduced-motion: reduce) {
   .flow-wire,
-  .sun-ray,
+  .sun-rays,
   .panel-glow {
     animation: none !important;
   }

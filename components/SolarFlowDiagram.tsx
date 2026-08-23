@@ -8,27 +8,27 @@ export default function SolarFlowDiagram() {
       <svg viewBox="0 0 640 300" className="mx-auto w-full max-w-2xl" role="img" aria-label="Diagram showing sunlight hitting solar panels, converted to usable electricity by an inverter, then powering your home, charging a battery, or exporting to the grid for payment.">
         {/* Sun */}
         <g>
-          {Array.from({ length: 8 }).map((_, i) => {
-            const angle = (i / 8) * Math.PI * 2;
-            const x1 = 70 + Math.cos(angle) * 34;
-            const y1 = 70 + Math.sin(angle) * 34;
-            const x2 = 70 + Math.cos(angle) * 44;
-            const y2 = 70 + Math.sin(angle) * 44;
-            return (
-              <line
-                key={i}
-                x1={x1}
-                y1={y1}
-                x2={x2}
-                y2={y2}
-                stroke={GOLD}
-                strokeWidth={3}
-                strokeLinecap="round"
-                className="sun-ray"
-                style={{ animationDelay: `${i * 0.08}s` }}
-              />
-            );
-          })}
+          <g className="sun-rays">
+            {Array.from({ length: 8 }).map((_, i) => {
+              const angle = (i / 8) * Math.PI * 2;
+              const x1 = 70 + Math.cos(angle) * 34;
+              const y1 = 70 + Math.sin(angle) * 34;
+              const x2 = 70 + Math.cos(angle) * 44;
+              const y2 = 70 + Math.sin(angle) * 44;
+              return (
+                <line
+                  key={i}
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke={GOLD}
+                  strokeWidth={3}
+                  strokeLinecap="round"
+                />
+              );
+            })}
+          </g>
           <circle cx={70} cy={70} r={26} fill={GOLD} />
         </g>
 
