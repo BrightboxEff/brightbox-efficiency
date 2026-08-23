@@ -25,7 +25,7 @@ const team = [
   {
     name: "Steve Battle",
     title: "Engineering Manager",
-    image: null,
+    image: "/steve-headshot.jpg",
     bio: "25 years leading technical teams across demanding industrial environments. Deep expertise in reliability engineering and project management, with a track record of building high-performing teams and delivering complex projects safely and efficiently.",
   },
 ];
