@@ -8,10 +8,13 @@ const navLinkClasses = "text-sm font-medium text-charcoal/70 transition hover:te
 const mobileNavLinkClasses = "block py-2.5 text-base font-medium text-charcoal/80 hover:text-moss";
 
 const links = [
+  { href: "/", label: "Home" },
   { href: "/calculator", label: "Calculator" },
   { href: "/maintenance", label: "Maintenance Consultation" },
-  { href: "/tutoring", label: "Interview Tutoring" },
   { href: "/survey", label: "Energy Survey" },
+  { href: "/tutoring", label: "Interview Tutoring" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact Us" },
 ];
 
 export default function HeaderNav({ hasUser }: { hasUser: boolean }) {
