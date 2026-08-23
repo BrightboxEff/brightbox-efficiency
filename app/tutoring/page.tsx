@@ -47,9 +47,11 @@ export default function TutoringPage() {
           />
           <div>
             <p className="font-medium text-charcoal">Paul Johnson</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-moss">Founder & CEO</p>
             <p className="mt-1 text-sm text-charcoal/70">
-              20+ years in engineering, with real interview-panel experience from hiring loops —
-              coaching drawn from what actually gets candidates through the door, not generic tips.
+              20+ years in engineering, leading a 500MW+ global renewable energy portfolio, with
+              real interview-panel experience from hiring loops — coaching drawn from what
+              actually gets candidates through the door, not generic tips.
             </p>
           </div>
         </div>
@@ -64,6 +66,7 @@ export default function TutoringPage() {
           />
           <div>
             <p className="font-medium text-charcoal">Steve Battle</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-moss">Engineering Consultant</p>
             <p className="mt-1 text-sm text-charcoal/70">
               25 years leading technical teams in demanding industrial environments — now helping
               others develop the skills needed to succeed in high-stakes engineering roles.

@@ -18,13 +18,13 @@ const equipmentTypes = [
 const team = [
   {
     name: "Paul Johnson",
-    title: "Founder & Engineering Consultant",
+    title: "Founder & CEO",
     image: "/paul-headshot.png",
-    bio: "20+ years in engineering and maintenance practice, from automotive production lines to end-to-end global renewable energy asset management.",
+    bio: "20+ years in engineering and maintenance practice — from automotive production lines to leading a 500MW+ global renewable energy portfolio, delivering over £2,000,000 in recurring utility savings. REI-certified Solar Energy Consultant Expert.",
   },
   {
     name: "Steve Battle",
-    title: "Engineering Manager",
+    title: "Engineering Consultant",
     image: "/steve-headshot.jpg",
     bio: "25 years leading technical teams across demanding industrial environments. Deep expertise in reliability engineering and project management, with a track record of building high-performing teams and delivering complex projects safely and efficiently.",
   },
