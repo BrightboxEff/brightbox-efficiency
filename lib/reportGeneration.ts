@@ -9,6 +9,7 @@
 
 import { createAdminClient } from "@/lib/supabase/server";
 import { SPEND_BRACKETS, MOTIVATIONS, type ConsumptionIntensity, type EquipmentItem } from "@/types/survey";
+import { formatRateBenchmarks } from "@/lib/rateBenchmarks";
 
 const MODEL = "claude-sonnet-5";
 const BUCKET = "utility-bills";
@@ -113,6 +114,8 @@ ${equipmentSummary || "(none itemised)"}
 ${row.largest_consumers ? `\nAdditional notes on biggest energy users: ${row.largest_consumers}` : ""}
 
 Attached: their utility bills for the last 12 months.
+
+${formatRateBenchmarks()}
 `.trim();
 
   const systemPrompt = `You are an energy efficiency consultant at Brightbox Efficiency Consultants, drafting a report for a paying customer based on their survey answers and attached utility bills. Match the depth and style of Brightbox's own hand-written energy scorecards: concrete, numbers-led, and tied to specific equipment — not generic advice.
@@ -122,8 +125,9 @@ Write the report as a simple HTML fragment (only <h2>, <h3>, <p>, <ul>, <li>, <s
 1. <h2>Executive Summary</h2> — headline figures: their total annual spend bracket, an estimated savings percentage range, and the single biggest opportunity you can identify from the bills and equipment profile.
 2. <h2>Bill Summary</h2> — what the attached utility bills actually show: usage patterns, seasonal variation, notable spend, any anomalies. If the bills contain enough monthly data, present it as a small table.
 3. <h2>Facility Equipment Profile</h2> — restate the customer's reported equipment as a table (Item, Quantity, Est. Wattage, Est. Daily Use, Est. Annual kWh) using the figures given, computing annual kWh where wattage and hours/day are both present. Flag which items look like the largest consumers.
-4. <h2>Findings & Recommended Initiatives</h2> — 4-6 numbered findings, each with: Current situation, Recommendation, Suggested product or fix (you MAY name a specific, well-known, plausible product type and an indicative UK price in plain text, e.g. "Smart plug timer (~£8-15)" or "LED T8 tube retrofit (~£4-7 per tube)" — do NOT invent a hyperlink or a specific vendor URL, since you cannot verify one exists), Estimated annual saving, and rough payback if calculable.
-5. <h2>Further Reading</h2> — 1-2 stable, well-known general resources if genuinely relevant, e.g. https://www.gov.uk/business-energy-efficiency or https://www.energysavingtrust.org.uk.
+4. <h2>Rate Benchmark</h2> — find the electricity and/or gas unit rate(s) (pence per kWh) stated on the attached bills, and state them plainly. Compare each against the reference ranges given below and say whether it looks competitive, average, or high. If a bill doesn't clearly state a unit rate, say so honestly rather than guessing one — don't fabricate a figure that isn't on the bill. Keep this section short (2-4 sentences); it's a sense-check, not a full market comparison.
+5. <h2>Findings & Recommended Initiatives</h2> — 4-6 numbered findings, each with: Current situation, Recommendation, Suggested product or fix (you MAY name a specific, well-known, plausible product type and an indicative UK price in plain text, e.g. "Smart plug timer (~£8-15)" or "LED T8 tube retrofit (~£4-7 per tube)" — do NOT invent a hyperlink or a specific vendor URL, since you cannot verify one exists), Estimated annual saving, and rough payback if calculable.
+6. <h2>Further Reading</h2> — 1-2 stable, well-known general resources if genuinely relevant, e.g. https://www.gov.uk/business-energy-efficiency or https://www.energysavingtrust.org.uk.
 
 This is a DRAFT that a human consultant will review, add their own expertise to, and edit before it's sent — write it as a strong, specific first pass, not final copy. Ground every figure in what's actually in the bills and the equipment profile; state assumptions explicitly rather than inventing precision you don't have.`;
 
