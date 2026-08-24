@@ -12,3 +12,48 @@ input[type="color"] {
   border: none;
   background: none;
 }
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes sun-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes panel-glow {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.flow-wire {
+  stroke-dasharray: 7 7;
+  animation: flow-dash 1s linear infinite;
+}
+
+.sun-rays {
+  animation: sun-rotate 12s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.panel-glow {
+  animation: panel-glow 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-wire,
+  .sun-rays,
+  .panel-glow {
+    animation: none !important;
+  }
+}

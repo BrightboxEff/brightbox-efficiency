@@ -28,13 +28,6 @@ const links = [
     Icon: MaintenanceIcon,
   },
   {
-    href: "/tutoring",
-    title: "1:1 Engineering Interview Tutoring",
-    description: "Book hours of one-to-one coaching for technical and engineering interviews.",
-    cta: "View tutoring",
-    Icon: TutoringIcon,
-  },
-  {
     href: "/survey",
     title: "Energy Efficiency Survey",
     description: "A remote, bills-based energy efficiency assessment with practical savings tips.",
@@ -70,6 +63,12 @@ export default function LandingPage() {
               Brightbox Efficiency
             </h1>
             <p className="mt-3 max-w-xl text-cream/90">{BRAND.tagline}</p>
+            <p className="mt-3 max-w-xl text-sm text-cream/80">
+              Real numbers, not sales pitches. We&apos;re engineering specialists across renewable
+              energy and industrial maintenance — helping businesses and homeowners cut energy
+              waste and plan smarter, with independent advice and clever tools that show you the
+              numbers in minutes.
+            </p>
 
             <div className="mt-8 flex flex-col items-center gap-3">
               <Link
@@ -105,7 +104,7 @@ export default function LandingPage() {
       </section>
 
       <section className="mt-12">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {links.map((item) => (
             <Link
               key={item.href}
@@ -119,6 +118,17 @@ export default function LandingPage() {
             </Link>
           ))}
         </div>
+
+        <Link
+          href="/tutoring"
+          className="mt-4 flex items-center gap-3 rounded-lg border border-border-muted bg-white px-5 py-3 text-sm shadow-sm transition hover:border-moss"
+        >
+          <TutoringIcon className="h-5 w-5 shrink-0 text-moss" />
+          <span className="text-charcoal/70">
+            Also available: <span className="font-medium text-charcoal">1:1 Engineering Interview Tutoring</span> — book by the hour
+          </span>
+          <span className="ml-auto font-medium text-moss">View →</span>
+        </Link>
       </section>
     </div>
   );

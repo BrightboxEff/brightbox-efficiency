@@ -9,7 +9,7 @@ export default function Footer() {
         <BrandLockup size="sm" />
         <p className="mt-3 text-sm italic text-charcoal/70">{BRAND.tagline}</p>
         <p className="mt-3 text-xs text-charcoal/50">
-          Paul Johnson, trading as {BRAND.name} · sole trader
+          Paul Johnson, trading as {BRAND.name}
         </p>
         <p className="mt-4 text-xs text-charcoal/50">
           &copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved. ·{" "}

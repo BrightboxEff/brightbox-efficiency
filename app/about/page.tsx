@@ -38,7 +38,7 @@ export default function AboutPage() {
           practice, starting in engineering roles within the automotive industry before a move
           into renewable energy asset management. That grounding in hands-on maintenance
           discipline now spans solar deployments, Battery Energy Storage System (BESS) roadmaps,
-          and facility-scale efficiency programmes; to date it has delivered over £2,000,000 in
+          and facility-scale efficiency programmes; to date it has delivered over £2m in
           recurring annual utility savings at major fulfillment networks. The same
           engineering-first, numbers-led method applies to every site we work with, whatever its
           size.

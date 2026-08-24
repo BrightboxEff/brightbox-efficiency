@@ -33,6 +33,7 @@ const PUBLIC_PATHS = [
   "/about",
   "/terms",
   "/resources",
+  "/how-solar-works",
   "/contact",
   "/api/stripe/webhook",
   "/api/tutoring-checkout",

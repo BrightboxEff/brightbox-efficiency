@@ -15,6 +15,21 @@ const equipmentTypes = [
   "Solar PV & BESS",
 ];
 
+const team = [
+  {
+    name: "Paul Johnson",
+    title: "Founder & CEO",
+    image: "/paul-headshot.png",
+    bio: "20+ years in engineering and maintenance practice, managing large maintenance teams and delivering high-profile projects across multiple disciplines — from automotive production lines to a 500MW+ global renewable energy portfolio, generating over £2m in recurring utility savings. REI-certified Solar Energy Consultant Expert.",
+  },
+  {
+    name: "Steve Battle",
+    title: "Engineering Consultant",
+    image: "/steve-headshot.jpg",
+    bio: "25 years leading technical teams across demanding industrial environments. Deep expertise in reliability engineering and project management, with a track record of building high-performing teams and delivering complex projects safely and efficiently.",
+  },
+];
+
 const services = [
   {
     title: "Maintenance strategy",
@@ -86,6 +101,35 @@ export default function MaintenanceConsultationPage() {
           <div key={s.title} className="rounded-lg border border-border-muted bg-white p-5 shadow-sm">
             <h3 className="font-medium text-charcoal">{s.title}</h3>
             <p className="mt-1.5 text-sm text-charcoal/70">{s.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2 className="pt-8 text-xl font-semibold text-charcoal">Meet the team</h2>
+      <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {team.map((person) => (
+          <div key={person.name} className="flex gap-4 rounded-lg border border-border-muted bg-white p-5 shadow-sm">
+            {person.image ? (
+              <Image
+                src={person.image}
+                alt={person.name}
+                width={175}
+                height={175}
+                className="h-16 w-16 shrink-0 rounded-full border-2 border-moss object-cover"
+              />
+            ) : (
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 border-moss bg-cream text-lg font-semibold text-moss">
+                {person.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </div>
+            )}
+            <div>
+              <p className="font-semibold text-charcoal">{person.name}</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-moss">{person.title}</p>
+              <p className="mt-1.5 text-sm text-charcoal/70">{person.bio}</p>
+            </div>
           </div>
         ))}
       </div>

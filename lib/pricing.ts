@@ -4,7 +4,7 @@
  * across the tutoring and energy survey checkout flows.
  */
 
-export const CONSULTATION_HOURLY_RATE_GBP = 60;
+export const CONSULTATION_HOURLY_RATE_GBP = 90;
 
 /**
  * Energy survey pricing is tiered by the customer's self-reported annual

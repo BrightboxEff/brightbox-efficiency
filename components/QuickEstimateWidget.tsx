@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import InfoTooltip from "@/components/InfoTooltip";
 
 interface QuickEstimateResult {
   region: string;
@@ -72,19 +73,28 @@ export default function QuickEstimateWidget() {
               <p className="text-lg font-semibold text-moss">
                 {result.annualGenerationKwh.toLocaleString()}
               </p>
-              <p className="text-[11px] text-charcoal/60">kWh/year</p>
+              <p className="flex items-center justify-center text-[11px] text-charcoal/60">
+                kWh/year
+                <InfoTooltip text="How much electricity your solar panels would generate in a year — roughly what a typical UK home uses." />
+              </p>
             </div>
             <div>
               <p className="text-lg font-semibold text-moss">
                 £{result.totalAnnualBenefitGbp.toLocaleString()}
               </p>
-              <p className="text-[11px] text-charcoal/60">est. annual benefit</p>
+              <p className="flex items-center justify-center text-[11px] text-charcoal/60">
+                est. annual benefit
+                <InfoTooltip text="Money saved on your electricity bill plus payments for any spare power you sell back to the grid, added together for a year." />
+              </p>
             </div>
             <div>
               <p className="text-lg font-semibold text-moss">
                 {result.paybackYears ? `${result.paybackYears}y` : "—"}
               </p>
-              <p className="text-[11px] text-charcoal/60">estimated payback</p>
+              <p className="flex items-center justify-center text-[11px] text-charcoal/60">
+                estimated payback
+                <InfoTooltip text="How many years of savings it takes to cover the cost of installing the system. After that, the electricity is essentially free." />
+              </p>
             </div>
           </div>
           <Link
