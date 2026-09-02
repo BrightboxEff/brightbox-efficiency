@@ -77,6 +77,9 @@ export default function HeaderNav({ hasUser }: { hasUser: boolean }) {
 
         {hasUser ? (
           <>
+            <Link href="/performance-monitor" className={navLinkClasses}>
+              Performance Monitor
+            </Link>
             <Link href="/settings" className={navLinkClasses}>
               Settings
             </Link>
@@ -143,6 +146,9 @@ export default function HeaderNav({ hasUser }: { hasUser: boolean }) {
           <div className="mt-2 border-t border-border-muted pt-2">
             {hasUser ? (
               <>
+                <Link href="/performance-monitor" className={mobileNavLinkClasses} onClick={() => setOpen(false)}>
+                  Performance Monitor
+                </Link>
                 <Link href="/settings" className={mobileNavLinkClasses} onClick={() => setOpen(false)}>
                   Settings
                 </Link>

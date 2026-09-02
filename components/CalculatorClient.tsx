@@ -8,6 +8,7 @@ import BreakevenChart from "@/components/BreakevenChart";
 import InsightsPanel from "@/components/InsightsPanel";
 import PdfDownloadButton from "@/components/PdfDownloadButton";
 import ConsultationRequest from "@/components/ConsultationRequest";
+import SaveToPerformanceMonitor from "@/components/SaveToPerformanceMonitor";
 import {
   compareBatteryScenarios,
   computeBreakevenSeries,
@@ -184,6 +185,14 @@ export default function CalculatorClient({ installer }: CalculatorClientProps) {
             systemSizeKwp={systemSizeKwp}
             systemCostGbp={systemCostGbp}
             result={result}
+          />
+
+          <SaveToPerformanceMonitor
+            postcode={result.location.postcode}
+            addressLine={addressLine}
+            projectName={projectName}
+            systemSizeKwp={systemSizeKwp}
+            monthlyBaselineKwh={result.solar.monthlyGenerationKwh}
           />
         </>
       )}
