@@ -19,4 +19,5 @@ export const BRAND = {
     borderMuted: "#DCD5C2", // card borders / dividers
   },
   contactEmail: "paul@brightboxefficiency.com",
+  siteUrl: "https://brightboxefficiency.com",
 };

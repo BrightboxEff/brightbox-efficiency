@@ -19,9 +19,35 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const title = BRAND.productName;
+const description = `${BRAND.name} — ${BRAND.tagline}`;
+const socialImage = {
+  url: "/og-image.png",
+  width: 1200,
+  height: 630,
+  alt: BRAND.productName,
+};
+
 export const metadata: Metadata = {
-  title: BRAND.productName,
-  description: `${BRAND.name} — ${BRAND.tagline}`,
+  metadataBase: new URL(BRAND.siteUrl),
+  title,
+  description,
+  openGraph: {
+    type: "website",
+    siteName: BRAND.productName,
+    locale: "en_GB",
+    title,
+    description,
+    // "./" resolves against each page's own path, so og:url is per-page.
+    url: "./",
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [socialImage],
+  },
 };
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 /**
  * middleware.ts
- * Gates the calculator app behind Supabase auth + a 7-day trial / active
+ * Gates the calculator app behind Supabase auth + a 14-day trial / active
  * Stripe subscription. The landing page and other product pages
  * (maintenance, tutoring, energy survey) are public marketing/purchase
  * pages. Route classes:
@@ -15,7 +15,7 @@
  *    specific gated path (e.g. /survey/review) wins over a broader public
  *    prefix (e.g. /survey).
  *  - everything else (/calculator, /settings): must be logged in AND have
- *    an active subscription or be within their 7-day trial
+ *    an active subscription or be within their 14-day trial
  */
 
 import { NextResponse, type NextRequest } from "next/server";

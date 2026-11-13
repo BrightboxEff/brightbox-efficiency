@@ -4,4 +4,4 @@
  * middleware.ts (access gating) and app/billing/page.tsx (days-left copy).
  */
 
-export const TRIAL_LENGTH_DAYS = 7;
+export const TRIAL_LENGTH_DAYS = 14;

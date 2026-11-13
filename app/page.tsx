@@ -17,7 +17,7 @@ const links = [
     title: "Solar Payback Calculator",
     description:
       "Postcode-based solar generation, savings, and payback modelling for installers and homeowners.",
-    cta: "Try the calculator",
+    cta: "Log in to the full calculator",
     Icon: CalculatorIcon,
   },
   {
@@ -81,7 +81,7 @@ export default function LandingPage() {
                 href="/calculator"
                 className="text-sm font-medium text-cream/80 underline underline-offset-2 transition hover:text-cream"
               >
-                Or go straight to the full calculator →
+                Or log in to the full calculator →
               </Link>
             </div>
 
